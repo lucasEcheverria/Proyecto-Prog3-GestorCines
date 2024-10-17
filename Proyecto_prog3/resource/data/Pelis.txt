@@ -1,0 +1,30 @@
+Inception;Christopher Nolan;ACCION;2.5;resource/images/cine.jpg;true;1;2024-10-11 14:00;2024-10-11 18:00;2024-10-12 20:00
+The Godfather;Francis Ford Coppola;DRAMA;2.9;resource/images/cine.jpg;false;2;2024-10-11 15:00;2024-10-12 17:00
+Interstellar;Christopher Nolan;CIENCIA_FICCION;3.0;resource/images/cine.jpg;true;3;2024-10-11 16:00;2024-10-12 19:00;2024-10-13 20:00
+Titanic;James Cameron;ROMANCE;3.2;resource/images/cine.jpg;false;4;2024-10-11 17:00;2024-10-12 21:00
+Pulp Fiction;Quentin Tarantino;CRIMEN;2.8;resource/images/cine.jpg;false;1;2024-10-11 20:00;2024-10-12 22:00
+The Dark Knight;Christopher Nolan;ACCION;2.7;resource/images/cine.jpg;true;2;2024-10-12 14:00;2024-10-13 16:00
+Forrest Gump;Robert Zemeckis;DRAMA;2.4;resource/images/cine.jpg;false;3;2024-10-12 15:00;2024-10-13 18:00
+Avatar;James Cameron;CIENCIA_FICCION;2.9;resource/images/cine.jpg;true;4;2024-10-12 17:00;2024-10-13 19:00
+La La Land;Damien Chazelle;MUSICAL;2.3;resource/images/cine.jpg;false;1;2024-10-12 14:00;2024-10-13 17:00
+Gladiator;Ridley Scott;ACCION;2.6;resource/images/cine.jpg;false;2;2024-10-12 18:00;2024-10-13 21:00
+The Matrix;Lana Wachowski;CIENCIA_FICCION;2.5;resource/images/cine.jpg;true;3;2024-10-12 19:00;2024-10-13 20:00
+Schindler's List;Steven Spielberg;DRAMA;3.1;resource/images/cine.jpg;false;4;2024-10-12 20:00;2024-10-13 22:00
+The Shawshank Redemption;Frank Darabont;DRAMA;2.2;resource/images/cine.jpg;false;1;2024-10-13 14:00;2024-10-14 16:00
+Fight Club;David Fincher;CRIMEN;2.4;resource/images/cine.jpg;false;2;2024-10-13 17:00;2024-10-14 19:00
+The Lion King;Jon Favreau;ANIMACION;1.8;resource/images/cine.jpg;false;3;2024-10-13 18:00;2024-10-14 20:00
+Spirited Away;Hayao Miyazaki;ANIMACION;2.1;resource/images/cine.jpg;false;4;2024-10-13 14:00;2024-10-14 17:00
+Star Wars: A New Hope;George Lucas;CIENCIA_FICCION;2.1;resource/images/cine.jpg;true;1;2024-10-13 19:00;2024-10-14 21:00
+The Lord of the Rings: The Fellowship of the Ring;Peter Jackson;FANTASIA;2.9;resource/images/cine.jpg;true;2;2024-10-14 15:00;2024-10-15 17:00
+Back to the Future;Robert Zemeckis;CIENCIA_FICCION;1.9;resource/images/cine.jpg;true;3;2024-10-14 16:00;2024-10-15 18:00
+The Avengers;Joss Whedon;ACCION;2.3;resource/images/cine.jpg;true;4;2024-10-14 17:00;2024-10-15 19:00
+The Silence of the Lambs;Jonathan Demme;CRIMEN;2.2;resource/images/cine.jpg;false;1;2024-10-14 14:00;2024-10-15 16:00
+Coco;Lee Unkrich;ANIMACION;1.7;resource/images/cine.jpg;false;2;2024-10-14 14:00;2024-10-15 17:00
+The Terminator;James Cameron;CIENCIA_FICCION;1.8;resource/images/cine.jpg;true;3;2024-10-14 18:00;2024-10-15 20:00
+Toy Story;John Lasseter;ANIMACION;1.6;resource/images/cine.jpg;false;4;2024-10-14 19:00;2024-10-15 21:00
+Indiana Jones: Raiders of the Lost Ark;Steven Spielberg;ACCION;2.0;resource/images/cine.jpg;false;1;2024-10-15 15:00;2024-10-16 17:00
+Jurassic Park;Steven Spielberg;CIENCIA_FICCION;2.1;resource/images/cine.jpg;true;2;2024-10-15 19:00;2024-10-16 21:00
+Frozen;Chris Buck;ANIMACION;1.5;resource/images/cine.jpg;false;3;2024-10-15 14:00;2024-10-16 16:00
+A Beautiful Mind;Ron Howard;DRAMA;2.3;resource/images/cine.jpg;false;4;2024-10-15 15:00;2024-10-16 18:00
+Braveheart;Mel Gibson;ACCION;2.8;resource/images/cine.jpg;false;1;2024-10-15 17:00;2024-10-16 20:00
+Alien;Ridley Scott;CIENCIA_FICCION;2.0;resource/images/cine.jpg;true;2;2024-10-15 18:00;2024-10-16 22:00
