@@ -18,9 +18,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-
 import domain.Butaca;
+import domain.Cartelera;
 import domain.Cliente;
 import domain.Entrada;
 
@@ -31,12 +30,14 @@ public class Ventana_carrito extends JFrame{
 	private JTextField filtrar;
 	private JComboBox<String> combo;
 	private JLabel titulo,filtro;
-	private JButton btncartelera,btnañadir;
+	private JButton btncartelera,btnañadir,btncomprar;
 	private JTable tablacarrito;
 	private DefaultTableModel modelocarrito;
 	private JScrollPane scrollTabla;
-	
-	public Ventana_carrito(Cliente c){
+	private JFrame vActual, vInicial;
+	public Ventana_carrito(Cliente c, JFrame vI, Cartelera cartelera){
+		vInicial = vI;
+		vActual = this;
 		pfiltro = new JPanel(new GridLayout(1,2));
 		pcentro = new JPanel(new BorderLayout());
 		pnorte = new JPanel();
@@ -52,19 +53,21 @@ public class Ventana_carrito extends JFrame{
 		combo = new JComboBox<String>(combotitles);
 		combo.setSelectedItem(null);
 		
+		btncomprar = new JButton("Comprar");
 		btnañadir = new JButton("Añadir al carro");
 		btnañadir.addActionListener((e)-> {
-			new Aniadir_carrito();
-			dispose();
+			new Aniadir_carrito(vI,cartelera);
+			vActual.setVisible(false);
 		});
 		btncartelera = new JButton("Ver cartelera");
 		btncartelera.addActionListener((e)-> {
-			new Ventana_inicial();
-			dispose();
+			vInicial.setVisible(true);
+			vActual.setVisible(false);
 		});
 		
 		modelocarrito = new DefaultTableModel();		
-		tablacarrito = new JTable(modelocarrito);	
+		tablacarrito = new JTable(modelocarrito);
+		
 		tablacarrito.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 			
 			@Override
@@ -75,9 +78,8 @@ public class Ventana_carrito extends JFrame{
 				if (row%2==0) {
 					c.setBackground(Color.cyan);
 				} else {
-					c.setBackground(Color.white);
+					c.setBackground(Color.white);	
 				}
-				
 				return c;
 			}
 		});;
@@ -87,7 +89,7 @@ public class Ventana_carrito extends JFrame{
 		scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollTabla.setBorder(new TitledBorder("Entradas"));
 		
-		String [] titulos = {"PELICULA","SALA","FILA BUTACA","COLUMNA BUTACA","BUTACA VIP","NUMERO DE ENTRADAS"};
+		String [] titulos = {"PELICULA","SALA","FILA BUTACA","COLUMNA BUTACA","BUTACA VIP","FECHA","PRECIO","NUMERO DE ENTRADAS"};
 		modelocarrito.setColumnIdentifiers(titulos);
 		
 		cargarTablaCarrito(c);	
@@ -129,6 +131,7 @@ public class Ventana_carrito extends JFrame{
 		
 		psur.add(btncartelera);
 		psur.add(btnañadir);
+		psur.add(btncomprar);
 		
 		pcentro.add(pfiltro,BorderLayout.NORTH);
 		pcentro.add(scrollTabla,BorderLayout.CENTER);		
@@ -150,10 +153,10 @@ public class Ventana_carrito extends JFrame{
 				Butaca butaca = entrada.getAsiento();
 				boolean vip = butaca.isVip();
 				if (vip) {
-					Object [] fila = {entrada.getTitulo_peli(),entrada.getSala(),butaca.getFila(),butaca.getColumna(),"SI",c.getCarrito_de_compra().get(entrada)};
+					Object [] fila = {entrada.getTitulo_peli(),entrada.getSala(),butaca.getFila(),butaca.getColumna(),"SI",entrada.getHorario(),10,c.getCarrito_de_compra().get(entrada)};
 					modelocarrito.addRow(fila);
 				} else {
-					Object [] fila = {entrada.getTitulo_peli(),entrada.getSala(),butaca.getFila(),butaca.getColumna(),"NO",c.getCarrito_de_compra().get(entrada)};
+					Object [] fila = {entrada.getTitulo_peli(),entrada.getSala(),butaca.getFila(),butaca.getColumna(),"NO",entrada.getHorario(),10,c.getCarrito_de_compra().get(entrada)};
 					modelocarrito.addRow(fila);
 				}
 				

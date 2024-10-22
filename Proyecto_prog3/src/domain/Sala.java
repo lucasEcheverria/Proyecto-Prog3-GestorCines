@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Sala {
-	private static int cont = 0;
+	private static int cont = 1;
 	private int id;
 	private ArrayList<Butaca> butacas;
 	private HashMap<String, Pelicula> horarios;
@@ -52,7 +52,7 @@ public class Sala {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				Butaca b = new Butaca(i, j, false, false,this.id);
-				if (i==7||i==8) {
+				if (i==6||i==7) {
 					b.setVip(true);
 				}
 				asientos.add(b);

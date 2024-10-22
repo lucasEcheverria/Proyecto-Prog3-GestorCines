@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
+import javax.swing.SwingConstants;
 import domain.Cartelera;
 import domain.Cliente;
 import domain.Pelicula;
@@ -24,9 +27,10 @@ public class Ventana_inicial extends JFrame{
 	private JLabel titulo;
 	private JButton carrito, cerrarsesion;
 	private JScrollPane scroll;
+	private JFrame vActual;
 	
-	
-	public Ventana_inicial() {
+	public Ventana_inicial(Cartelera cartelera) {
+		vActual = this;
 		pcentro = new JPanel();
 		psur = new JPanel();
 		pnorte = new JPanel();
@@ -35,7 +39,7 @@ public class Ventana_inicial extends JFrame{
 		cerrarsesion = new JButton("Cerrar Sesion");
 		
 		titulo = new JLabel("Cartelera");
-		cargarPelis();
+		cargarPelis(cartelera);
 		
 		Font fuente = new Font(getName(),Font.BOLD , 30);
 		titulo.setFont(fuente);
@@ -52,8 +56,8 @@ public class Ventana_inicial extends JFrame{
 		carrito.addActionListener(e -> {
 			Cliente c = new Cliente("nombre", "contrasenia", "Markel", "Urquiza", "791258886k", "markel.urquiza@opendeusto.es", null);
 			c.setCarrito_de_compra(c.cargarEntradas());
-			new Ventana_carrito(c);
-			dispose();
+			new Ventana_carrito(c,vActual,cartelera);
+			vActual.setVisible(false);
 		});
 		psur.add(cerrarsesion);
 		cerrarsesion.setFont(fuentebtn);
@@ -69,24 +73,62 @@ public class Ventana_inicial extends JFrame{
 		ImageIcon imagen = new ImageIcon("resource/images/icono.png");
 		setIconImage(imagen.getImage());
 		setTitle("DeustoCine");
-		setSize(800,600);
+		setSize(1200,700);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 		
 	}
-	public void cargarPelis() {
+	public void cargarPelis(Cartelera cartelera) {
 		
 		ArrayList<Pelicula> pelis = new ArrayList<>();
-		Cartelera cartelera = new Cartelera(null);
-		cartelera.setCartelera(cartelera.cargarCartelera());
 		for (Sala sala : cartelera.getCartelera()) {
 			for(String date : sala.getHorarios().keySet()) {
 				if (!pelis.contains(sala.getHorarios().get(date))) {
-					JPanel peli = new JPanel();
+					JPanel peli = new JPanel(new BorderLayout());
 					ImageIcon img = new ImageIcon(sala.getHorarios().get(date).getRutafoto());
-					peli.add(new JLabel(img),BorderLayout.CENTER);
-					peli.add(new JLabel(sala.getHorarios().get(date).getTitulo()),BorderLayout.SOUTH);
+					Image imagenOriginal = img.getImage();
+			        Image imagenRedimensionada = imagenOriginal.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+			        ImageIcon imgredimensionada = new ImageIcon(imagenRedimensionada);
+					peli.add(new JLabel(imgredimensionada),BorderLayout.CENTER);
+					JLabel titulopeli = new JLabel(sala.getHorarios().get(date).getTitulo());
+					titulopeli.setHorizontalAlignment(SwingConstants.CENTER);
+					peli.add(titulopeli,BorderLayout.SOUTH);
+					
+					peli.addMouseListener(new MouseListener() {
+						
+						@Override
+						public void mouseReleased(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mousePressed(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mouseExited(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							// TODO Auto-generated method stub
+							vActual.setVisible(false);
+							new Aniadir_carrito(vActual, cartelera);
+							
+						}
+					});
 					pcentro.add(peli);
 					pelis.add(sala.getHorarios().get(date));
 				}

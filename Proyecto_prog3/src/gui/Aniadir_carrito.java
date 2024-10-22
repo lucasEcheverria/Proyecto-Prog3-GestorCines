@@ -2,11 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,11 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.ListModel;
+import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import domain.Cartelera;
 import domain.Pelicula;
 import domain.Sala;
@@ -27,38 +24,54 @@ import domain.Sala;
 public class Aniadir_carrito extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	private JPanel pcentro,pnorte,poeste,psur,pderecha;
-	private JLabel titulo,foto,info;
-	private JButton btncancelar,btnaniadir; 
+	private JPanel pcentro,pnorte,poeste,psur,pderecha,pcombo;
+	private JLabel titulo,foto;
+	private JButton btncancelar,btnaniadir,btnasientos; 
 	private JList<String> listapelis;
 	private JComboBox<String> horarios;
-	private JSlider precios;
+	private JTextArea info;
+	private JFrame vActual,vInicial;
 
-	public Aniadir_carrito(){
+	public Aniadir_carrito(JFrame vI,Cartelera cartelera){
+		vActual = this;
+		vInicial = vI;
+		
 		pcentro = new JPanel(new GridLayout(1,2));
 		poeste = new JPanel();
 		pnorte = new JPanel();
 		psur = new JPanel();
 		pderecha = new JPanel(new GridLayout(4,1));
+		pcombo = new JPanel(new GridLayout(2,1));
 		
 		horarios = new JComboBox<String>();
 		
 		foto = new JLabel();
-		info = new JLabel();
 		titulo = new JLabel("Comprar entradas");
 		
-		listapelis = new JList<String>(cargarLista());
+		info = new JTextArea();
+		info.setEditable(false);
+		
+		listapelis = new JList<String>(cargarLista(cartelera));
 		listapelis.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				String valor = listapelis.getSelectedValue();
 				if (valor!=null) {
-					cargarPanelCentro(valor);
+					cargarPanelCentro(valor,cartelera);
 				}
 			}
 		});
 		
+		
+		btnasientos = new JButton("Elegir asiento");
+		btnasientos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Ventana_elegirbutaca();
+			}
+		});
 		btnaniadir = new JButton("Aniadir al carrito");
 		btnaniadir.addActionListener(new ActionListener() {
 			
@@ -73,8 +86,8 @@ public class Aniadir_carrito extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Ventana_inicial();
-				dispose();
+				vInicial.setVisible(true);
+				vActual.setVisible(false);
 			}
 		});
 		
@@ -91,7 +104,7 @@ public class Aniadir_carrito extends JFrame {
 		pcentro.add(pderecha);
 		
 		pderecha.add(info);
-		pderecha.add(horarios);
+		pderecha.add(pcombo);
 		pderecha.add(btnaniadir);
 		
 		ImageIcon imagen = new ImageIcon("resource/images/icono.png");
@@ -102,11 +115,10 @@ public class Aniadir_carrito extends JFrame {
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}
-	public String[] cargarLista() {
+
+	public String[] cargarLista(Cartelera cartelera) {
 		String palabra = "";
 		ArrayList<Pelicula> pelis = new ArrayList<Pelicula>();
-		Cartelera cartelera = new Cartelera(null);
-		cartelera.setCartelera(cartelera.cargarCartelera());;
 		for (Sala sala : cartelera.getCartelera()) {
 			for (String string : sala.getHorarios().keySet()) {
 				if (!pelis.contains(sala.getHorarios().get(string))) {
@@ -119,10 +131,8 @@ public class Aniadir_carrito extends JFrame {
 		String[] l = palabra.split(";");
 		return l;
 	}
-	public void cargarPanelCentro(String valor) {
+	public void cargarPanelCentro(String valor,Cartelera cartelera) {
 		ArrayList<Pelicula> pelis = new ArrayList<Pelicula>();
-		Cartelera cartelera = new Cartelera(null);
-		cartelera.setCartelera(cartelera.cargarCartelera());;
 		for (Sala sala : cartelera.getCartelera()) {
 			for (String string : sala.getHorarios().keySet()) {
 				if (!pelis.contains(sala.getHorarios().get(string))) {
@@ -133,39 +143,40 @@ public class Aniadir_carrito extends JFrame {
 		}
 		int pos=0;
 		boolean enc=false;
-		System.out.println("SI");
-		while (!enc&&pos>pelis.size()) {
+		while (!enc&&pos<pelis.size()) {
 			if (pelis.get(pos).getTitulo().equals(valor)) {		
 				
 				Pelicula peli = pelis.get(pos);
 				ImageIcon img = new ImageIcon(peli.getRutafoto());
-				foto.setIcon(img);
+				Image imagenOriginal = img.getImage();
+		        Image imagenRedimensionada = imagenOriginal.getScaledInstance(foto.getWidth(), foto.getHeight(), Image.SCALE_SMOOTH);
+		        ImageIcon imgredimensionada = new ImageIcon(imagenRedimensionada);
+				foto.setIcon(imgredimensionada);
 				
-				info.setText("Titulo: "+peli.getTitulo()+"\tDirigida por: "+peli.getDirector()+"\tGenero: "+
-						peli.getTipo().toString()+"\tDuracion: "+peli.getDuracion()+"h");
+				info.setText("Titulo: "+peli.getTitulo()+"\nDirigida por: "+peli.getDirector()+"\nGenero: "+
+						peli.getTipo().toString()+"\nDuracion: "+peli.getDuracion()+"h");
+				
+				horarios.removeAllItems();
 				
 				String horas = "";
-				Cartelera car = new Cartelera(null);
-				car.setCartelera(car.cargarCartelera());;
-				
-				for (Sala sala : car.getCartelera()) {
+				for (Sala sala : cartelera.getCartelera()) {
 					for (String string : sala.getHorarios().keySet()) {
-						if (sala.getHorarios().containsValue(peli)) {
-							horas += string+";";
+						if (sala.getHorarios().get(string).equals(peli) && !horas.contains(string)) {
+							horas += string+";"; 
 						}
 					}
 				}
-				System.out.println("SI");
 				String[] h = horas.split(";");
 				for (int i = 0; i < h.length; i++) {
 					horarios.addItem(h[i]);
-					System.out.println("SI");
 				}
-				System.out.println("SI");
-
+				pcombo.add(horarios);
+				pcombo.add(btnasientos);
 				enc = true;
 			}else pos++;
 		}
 		
 	}
+
+	
 }

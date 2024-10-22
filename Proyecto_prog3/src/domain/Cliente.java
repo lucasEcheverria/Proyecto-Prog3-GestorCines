@@ -47,9 +47,11 @@ public class Cliente extends Persona{
 				int fila = Integer.parseInt(campos[3]);
 				int column = Integer.parseInt(campos[4]);
 				boolean vip = Boolean.valueOf(campos[5]);
+				String hora = campos[6];
 				
 				Butaca butaca = new Butaca(fila, column, vip, true, id_sala);
-				Entrada entrada = new Entrada(butaca, id_peli, titulo, id_sala);
+				Entrada entrada = new Entrada(butaca, id_peli, titulo, id_sala,10,hora);
+
 				
 				entradas.put(entrada, 1);
 			}

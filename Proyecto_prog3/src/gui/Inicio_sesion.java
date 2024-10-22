@@ -3,6 +3,9 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import domain.Cartelera;
+
 public class Inicio_sesion  extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
@@ -19,9 +24,11 @@ public class Inicio_sesion  extends JFrame{
 	private JPanel pcentro,psur,poeste,peste,pcontra,pnombre;
 	private JTextField nom;
 	private JPasswordField con;
-	private JButton btninicio,btncierre;
+	private JButton btninicio,btncierre,btnregistro;
+	private JFrame vActual;
 	
-	public Inicio_sesion() {
+	public Inicio_sesion(Cartelera cartelera) {
+		vActual = this;
 		setTitle("Inicio de Sesion");
 		setSize(600, 400);
 		setLocationRelativeTo(null);
@@ -44,6 +51,16 @@ public class Inicio_sesion  extends JFrame{
 			System.exit(0);
 		});
 		
+		btnregistro = new JButton("Registrarme");
+		btnregistro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Ventana_registro(vActual);
+			}
+		});
+		
 		btninicio = new JButton("Iniciar sesion");
 		btninicio.addActionListener((e)->{
 			if (con.getText().isEmpty() || nom.getText().isEmpty()) {
@@ -53,7 +70,7 @@ public class Inicio_sesion  extends JFrame{
 			}
 			else {
 				if (nom.getText().equals("nombre") && con.getText().equals("contrasenia")) {
-					new Ventana_inicial();
+					new Ventana_inicial(cartelera);
 					dispose();
 				}
 			}
@@ -83,8 +100,8 @@ public class Inicio_sesion  extends JFrame{
 		pnombre.add(nom);
 		pcontra.add(con);
 		
-		
 		psur.add(btninicio);
+		psur.add(btnregistro);
 		psur.add(btncierre);		
 		
 		ImageIcon imagen = new ImageIcon("resource/images/icono.png");

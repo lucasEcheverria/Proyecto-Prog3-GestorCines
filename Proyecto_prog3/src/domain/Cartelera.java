@@ -9,9 +9,7 @@ import java.util.Scanner;
 public class Cartelera {
 	private ArrayList<Sala> cartelera;
 
-	public Cartelera(ArrayList<Sala> cartelera) {
-		super();
-		this.cartelera = cartelera;
+	public Cartelera() {
 	}
 
 	public ArrayList<Sala> getCartelera() {

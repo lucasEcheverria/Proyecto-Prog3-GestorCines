@@ -7,11 +7,15 @@ public class Entrada {
 	private int sala;
 	private int id_peli;
 	private String titulo_peli;
+	private String horario;
+	private float precio;
 	
-	public Entrada(Butaca asiento, int id_peli, String titulo_peli, int sala) {
+	public Entrada(Butaca asiento, int id_peli, String titulo_peli, int sala, float precio, String horario) {
 		super();
 		this.id = cont;
 		this.asiento = asiento;
+		this.horario = horario;
+		this.precio = precio;
 		this.id_peli = id_peli;
 		this.titulo_peli = titulo_peli;
 		this.sala = sala;
@@ -22,6 +26,23 @@ public class Entrada {
 		super();
 		this.id=cont;
 		cont++;
+	}
+
+	
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
+
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
 
 	public Butaca getAsiento() {

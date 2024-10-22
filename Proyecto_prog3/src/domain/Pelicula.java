@@ -8,9 +8,7 @@ public class Pelicula {
 	private Genero tipo;
 	private float duracion;
 	private String rutafoto;
-	private boolean tresd;
-	
-	
+	private boolean tresd;	
 	
 	public Pelicula() {
 		super();
