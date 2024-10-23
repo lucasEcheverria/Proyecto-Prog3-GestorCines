@@ -32,7 +32,7 @@ public class Aniadir_carrito extends JFrame {
 	private JTextArea info;
 	private JFrame vActual,vInicial;
 
-	public Aniadir_carrito(JFrame vI,Cartelera cartelera){
+	public Aniadir_carrito(JFrame vI,Cartelera cartelera,String valor){
 		vActual = this;
 		vInicial = vI;
 		
@@ -51,14 +51,38 @@ public class Aniadir_carrito extends JFrame {
 		info = new JTextArea();
 		info.setEditable(false);
 		
-		listapelis = new JList<String>(cargarLista(cartelera));
+		String [] oLista = cargarLista(cartelera);
+		
+		listapelis = new JList<String>(oLista);
+		int pos=0;
+		boolean enc=false;
+		int index = -1;
+		listapelis.setSelectedIndex(0);
+		/*while (!enc&&pos<oLista.length) {
+			if (oLista[pos].equals(valor)) {
+				index = pos;
+				enc = true;
+			}
+		}
+		if (index!=-1) {
+			listapelis.setSelectedIndex(index);
+			cargarPanelCentro(valor,cartelera);
+		}else {
+			listapelis.setSelectedIndex(0);
+			cargarPanelCentro(valor, cartelera);
+		}
+		*/
 		listapelis.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				String valor = listapelis.getSelectedValue();
-				if (valor!=null) {
-					cargarPanelCentro(valor,cartelera);
+				String value = listapelis.getSelectedValue();
+				if (value!=null) {
+					cargarPanelCentro(value,cartelera);
+				}
+				if (!listapelis.isSelectedIndex(listapelis.getSelectedIndex())) {
+					listapelis.setSelectedIndex(0);
+					cargarPanelCentro(valor, cartelera);
 				}
 			}
 		});

@@ -91,7 +91,8 @@ public class Ventana_inicial extends JFrame{
 			        Image imagenRedimensionada = imagenOriginal.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 			        ImageIcon imgredimensionada = new ImageIcon(imagenRedimensionada);
 					peli.add(new JLabel(imgredimensionada),BorderLayout.CENTER);
-					JLabel titulopeli = new JLabel(sala.getHorarios().get(date).getTitulo());
+					String titulo = sala.getHorarios().get(date).getTitulo();
+					JLabel titulopeli = new JLabel(titulo);
 					titulopeli.setHorizontalAlignment(SwingConstants.CENTER);
 					peli.add(titulopeli,BorderLayout.SOUTH);
 					
@@ -125,7 +126,7 @@ public class Ventana_inicial extends JFrame{
 						public void mouseClicked(MouseEvent e) {
 							// TODO Auto-generated method stub
 							vActual.setVisible(false);
-							new Aniadir_carrito(vActual, cartelera);
+							new Aniadir_carrito(vActual, cartelera, titulo);
 							
 						}
 					});
